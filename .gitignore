@@ -1,0 +1,8 @@
+
+# Not published: bring your own (see README "Setup notes")
+backend/knowledge/
+backend/data_index/
+backend/models/
+*.pem
+*.env
+!*.env.example

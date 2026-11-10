@@ -1,0 +1,36 @@
+version: "3.9"
+services:
+
+  backend:
+    build: ./backend
+    container_name: flask_backend
+    env_file:
+      - ./backend/.env
+    # volumes:
+    #   - ./backend:/app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+    restart: always
+
+  frontend:
+    build: ./frontend
+    container_name: vite_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: always
+
+  mongo:
+    image: mongo:6
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:

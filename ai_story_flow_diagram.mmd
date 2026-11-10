@@ -1,0 +1,83 @@
+flowchart TD
+  %% Frontend
+  subgraph F[Frontend]
+    U[[User]]
+    AuthUI[Auth Page / Google Sign-In]
+    ChatUI[Chat Page + Creative Writing Panel]
+    StoryCanvas[Story Canvas]
+    AudioRec[Audio Recorder]
+  end
+
+  %% Backend core services
+  subgraph B[Backend]
+    AuthAPI[/Auth APIs\n/api/register, /api/login, /api/google/]
+    ChatAPI[/Chat APIs\n/api/chat, /api/chat_stream/]
+    ClearConv[/Conversation Clear APIs\n/api/clear_conversation, /api/clear_all_conversations/]
+    HistoryAPI[/History APIs\n/api/history, /api/history/<id>/]
+
+    Intent[Intent Classifier (is_story_intent)]
+    RAG[Retrieve Inspiration Profile\n(FAISS + HYDE + LLM fusion)]
+    StoryGen[Story Generator LLM]
+    NormalChat[Normal Chat LLM]
+
+    STTWS[/WS /ws/stt/]
+    Vosk[Vosk STT Model]
+
+    Mongo[(MongoDB\nusers, chats)]
+    FAISS[(FAISS Index +\nInspiration Summaries)]
+  end
+
+  %% Authentication flow
+  U -->|Register/Login/Google| AuthUI
+  AuthUI -->|HTTP| AuthAPI
+  AuthAPI -->|Create/lookup user, hash passwords, verify Google token| Mongo
+  AuthAPI -->|Return JWT + profile| AuthUI
+
+  %% Main chat flow (frontend)
+  U -->|Type text or use voice| ChatUI
+  ChatUI -->|Optional creative settings\n(genre, tone, etc.)| ChatUI
+  ChatUI -->|Send message + params + JWT| ChatAPI
+
+  %% Chat routing & processing (backend)
+  ChatAPI -->|Load prior turns| Mongo
+  ChatAPI --> Intent
+  Intent -->|story intent = true| RAG
+  Intent -->|story intent = false| NormalChat
+
+  RAG -->|Embed HYDE subqueries| FAISS
+  RAG -->|Top-k chunks + summaries| FAISS
+  RAG -->|Fused inspiration profile| StoryGen
+
+  StoryGen -->|Plain-text story reply| ChatAPI
+  NormalChat -->|Assistant reply| ChatAPI
+
+  ChatAPI -->|Persist user msg, reply, params| Mongo
+  ChatAPI -->|Stream / return reply text| ChatUI
+
+  %% Story canvas & export
+  ChatUI -->|"Add to Canvas" on assistant msg| StoryCanvas
+  StoryCanvas -->|Edit combined story text| StoryCanvas
+  StoryCanvas -->|Download TXT / PDF (jsPDF)| U
+
+  %% Conversation clearing & history
+  ChatUI -->|Clear one/all conversations| ClearConv
+  ClearConv -->|Delete matching chats| Mongo
+
+  ChatUI -->|Request history list or conversation by id| HistoryAPI
+  HistoryAPI -->|Aggregate and sort chats| Mongo
+  HistoryAPI -->|Return grouped or detailed history| ChatUI
+
+  %% STT WebSocket flow
+  AudioRec -->|16kHz PCM audio over WS| STTWS
+  STTWS -->|On connect, ensure model| Vosk
+  STTWS -->|Binary audio frames| Vosk
+  Vosk -->|partial/final transcripts| STTWS
+  STTWS -->|JSON {type: partial/final, text}| AudioRec
+  AudioRec -->|Update live draft / final text| ChatUI
+
+  %% Control messages for STT
+  AudioRec -->|{"event":"start"}| STTWS
+  STTWS -->|{"type":"ready"}| AudioRec
+  AudioRec -->|{"event":"ping"}| STTWS
+  STTWS -->|{"type":"pong"}| AudioRec
+  AudioRec -->|{"event":"stop"}| STTWS

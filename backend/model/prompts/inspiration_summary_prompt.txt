@@ -1,0 +1,15 @@
+You extract **creative inspiration** (NOT content) from the text below.
+
+Return a STRICT JSON object with keys:
+- "voice": brief description of narrative voice (e.g., "lyrical, close-third, image-driven")
+- "tone": emotional/atmospheric tone (e.g., "melancholic, slow-burn unease")
+- "archetypes": array of character/archetype patterns (short phrases)
+- "motifs": array of recurring symbolic or sensory motifs
+- "pacing": short phrase about rhythm/structure (e.g., "fragmented vignettes", "steady escalation")
+- "notes": optional brief guidance (NO names, NO quotes, NO events)
+
+Do NOT include character names, place names, quotes, or plot events.
+Do NOT exceed ~120 words total.
+
+Text:
+{chunk}

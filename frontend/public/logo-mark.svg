@@ -1,0 +1,51 @@
+<svg width="240" height="80" viewBox="0 0 240 80" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="aumicFlowLogoTitle">
+  <title id="aumicFlowLogoTitle">Aumic Flow logo</title>
+  <defs>
+    <linearGradient id="aumicSunset" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDF2E7"/>
+      <stop offset="50%" stop-color="#F4B28F"/>
+      <stop offset="100%" stop-color="#E37B53"/>
+    </linearGradient>
+    <linearGradient id="aumicShadow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3B2F2F" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#3B2F2F" stop-opacity="0.05"/>
+    </linearGradient>
+    <clipPath id="roundedBadge">
+      <rect x="0" y="0" width="240" height="80" rx="26" />
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#roundedBadge)">
+    <rect width="240" height="80" rx="26" fill="url(#aumicShadow)" />
+    <rect width="240" height="80" rx="26" fill="url(#aumicSunset)" opacity="0.45" />
+
+    <!-- Radiating motifs -->
+    <circle cx="46" cy="40" r="58" fill="url(#aumicSunset)" opacity="0.16"/>
+    <circle cx="46" cy="40" r="34" fill="#FDF9F5" opacity="0.9"/>
+
+    <!-- Stylised “A” monogram -->
+    <path d="M30 54 C34 36 44 20 56 20 C64 20 69 25 69 31 C69 37 65 41 56 43 L46 45"
+          fill="none"
+          stroke="#C15B33"
+          stroke-width="6"
+          stroke-linecap="round"
+          stroke-linejoin="round"/>
+    <path d="M44 30 Q53 46 60 56"
+          fill="none"
+          stroke="#E37B53"
+          stroke-width="5"
+          stroke-linecap="round"/>
+    <circle cx="34" cy="30" r="4" fill="#C15B33"/>
+
+    <!-- Word mark -->
+    <text x="96" y="38" font-family="Georgia, 'Times New Roman', serif" font-size="30" font-weight="600" letter-spacing="4" fill="#3B2F2F">
+      AUMIC
+    </text>
+    <text x="96" y="58" font-family="'Work Sans', 'Segoe UI', sans-serif" font-size="22" font-weight="500" fill="#5F5449" letter-spacing="1">
+      Flow
+    </text>
+    <path d="M180 48 C188 44 198 44 206 48" stroke="#C58F6B" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <circle cx="207" cy="48" r="4" fill="#E37B53"/>
+  </g>
+</svg>
+

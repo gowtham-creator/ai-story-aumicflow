@@ -1,0 +1,420 @@
+/**
+ * =====================================
+ *    PREMIUM AI CHAT DESIGN SYSTEM
+ * =====================================
+ * 
+ * Project: Elite ChatGPT Experience
+ * Type: Advanced AI Conversational Interface
+ * 
+ * DESIGN PHILOSOPHY
+ * -----------------
+ * Core Principle: Sophisticated, immersive, distraction-free brilliance
+ * Design Style: Neo-Modern with Dark Mode Mastery
+ * Emotion Goal: Empowering, premium, intelligent, inspiring
+ * Visual Language: Deep gradients, subtle glows, fluid motion
+ * 
+ * COLOR SYSTEM (HSL FORMAT)
+ * -------------
+ * Primary: 270 70% 60% - Deep violet intelligence
+ * Secondary: 200 70% 55% - Cyan brilliance
+ * Accent: 330 70% 60% - Magenta spark
+ * Success: 158 64% 52% - Emerald trust
+ * Background: Deep cosmic blacks with subtle gradients
+ * 
+ * TYPOGRAPHY
+ * ----------
+ * Display: Geist Sans / Inter - Clean modern intelligence
+ * Body: System UI optimized for reading comfort
+ * Code: JetBrains Mono / Fira Code - Developer excellence
+ * 
+ * INTERACTIONS
+ * ------------
+ * Transitions: 250ms cubic-bezier for fluid motion
+ * Hover: Subtle glow and elevation
+ * Active: Satisfying press feedback
+ * Gestures: Smooth, natural, delightful
+ * ====================================
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+  font-family: "Söhne";
+  src: url("/fonts/soehne-buch.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+@layer base {
+  :root {
+    /* Core Claude Colors */
+    --background: 38 33% 94%;  /* #F4F0EA - warm paper */
+    --foreground: 20 10% 12%;  /* near-black with a warm undertone */
+
+    --card: 0 0% 100%; /* soft white */
+    --card-foreground: 20 10% 12%;
+
+    /* Low-contrast Borders */
+    --border: 35 15% 80%; /* soft clay border */
+    --input: 35 15% 80%;
+
+    /* Accent Purple for Links & Key UI */
+    --primary: 259 75% 72%; /* #7C6FF6 Claude Iris Purple */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 30 10% 88%;
+    --secondary-foreground: 20 10% 15%;
+
+    /* Muted neutrals */
+    --muted: 35 15% 92%;
+    --muted-foreground: 30 10% 40%;
+
+    /* Success */
+    --success: 150 40% 45%;
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 20 25% 8%;         /* deep warm espresso */
+    --foreground: 40 15% 92%;        /* soft cream text */
+
+    --card: 20 25% 10%;
+    --card-foreground: 40 15% 92%;
+
+    --popover: 20 25% 10%;
+    --popover-foreground: 40 15% 92%;
+
+    --primary: 28 75% 60%;           /* amber glow stays strong */
+    --primary-foreground: 20 25% 7%;
+
+    --secondary: 25 18% 35%;         /* earthy UI neutral */
+    --secondary-foreground: 40 15% 92%;
+
+    --muted: 20 15% 18%;
+    --muted-foreground: 35 25% 72%;
+
+    --accent: 32 65% 55%;
+    --accent-foreground: 20 25% 7%;
+
+    --border: 22 10% 22%;
+    --input: 22 10% 22%;
+    --ring: 28 75% 60%;
+
+    --success: 150 35% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+  }
+  body {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    @apply bg-background text-foreground antialiased min-h-screen;
+    overflow-x: hidden;
+    margin: 0;
+    width: 100%;
+  }
+  #root {
+    min-height: 100vh;
+    width: 100%;
+  }
+}
+
+/* Premium Scrollbar */
+@layer utilities {
+  .scrollbar-premium::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .scrollbar-premium::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  
+  .scrollbar-premium::-webkit-scrollbar-thumb {
+    @apply bg-border/50 rounded-full transition-colors duration-200;
+  }
+  
+  .scrollbar-premium::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary/30;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .scrollbar-hidden {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Premium Gradient Backgrounds */
+@layer utilities {
+  .gradient-premium {
+    background: linear-gradient(135deg, 
+      hsl(var(--primary)) 0%, 
+      hsl(var(--secondary)) 50%, 
+      hsl(var(--accent)) 100%);
+  }
+
+  .gradient-mesh {
+    background-image: 
+      radial-gradient(at 0% 0%, hsla(270, 70%, 60%, 0.15) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, hsla(200, 70%, 55%, 0.15) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, hsla(330, 70%, 60%, 0.15) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, hsla(158, 64%, 52%, 0.15) 0px, transparent 50%);
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 20px hsla(var(--primary), 0.3);
+  }
+
+  .glow-secondary {
+    box-shadow: 0 0 20px hsla(var(--secondary), 0.3);
+  }
+}
+
+/* Sophisticated Markdown Rendering */
+@layer components {
+  .prose-ai {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    @apply text-foreground leading-relaxed;
+  }
+  
+  .prose-ai p {
+    @apply mb-4 text-base leading-7;
+  }
+
+  .prose-ai p:last-child {
+    @apply mb-0;
+  }
+  
+  .prose-ai h1, .prose-ai h2, .prose-ai h3 {
+    @apply font-semibold mt-6 mb-3 text-foreground;
+  }
+
+  .prose-ai h1 {
+    @apply text-2xl;
+  }
+
+  .prose-ai h2 {
+    @apply text-xl;
+  }
+
+  .prose-ai h3 {
+    @apply text-lg;
+  }
+  
+  .prose-ai ul, .prose-ai ol {
+    @apply mb-4 ml-6 space-y-2;
+  }
+
+  .prose-ai ul {
+    @apply list-disc;
+  }
+
+  .prose-ai ol {
+    @apply list-decimal;
+  }
+  
+  .prose-ai li {
+    @apply leading-7;
+  }
+
+  .prose-ai li > ul, .prose-ai li > ol {
+    @apply mt-2 mb-0;
+  }
+  
+  .prose-ai strong {
+    @apply font-semibold text-foreground;
+  }
+
+  .prose-ai em {
+    @apply italic;
+  }
+
+  .prose-ai code {
+    @apply bg-muted/70 px-1.5 py-0.5 rounded text-sm font-mono text-accent;
+  }
+  
+  .prose-ai pre {
+    @apply bg-card border rounded-xl p-4 mb-4 overflow-x-auto relative;
+  }
+  
+  .prose-ai pre code {
+    @apply bg-transparent p-0 text-foreground;
+  }
+
+  .prose-ai blockquote {
+    @apply border-l-4 border-primary/50 pl-4 italic text-muted-foreground mb-4;
+  }
+
+  .prose-ai a {
+    @apply text-primary hover:text-primary/80 underline underline-offset-4 transition-colors;
+  }
+
+  .prose-ai table {
+    @apply w-full border-collapse mb-4;
+  }
+
+  .prose-ai th {
+    @apply bg-muted/50 px-4 py-2 text-left font-semibold border;
+  }
+
+  .prose-ai td {
+    @apply px-4 py-2 border;
+  }
+
+  .prose-ai hr {
+    @apply my-8 border-border;
+  }
+}
+
+/* Premium Animations */
+@layer utilities {
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  .animate-shimmer {
+    animation: shimmer 3s infinite linear;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      hsla(var(--primary), 0.1) 50%,
+      transparent 100%
+    );
+    background-size: 1000px 100%;
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      opacity: 1;
+      box-shadow: 0 0 20px hsla(var(--primary), 0.4);
+    }
+    50% {
+      opacity: 0.8;
+      box-shadow: 0 0 30px hsla(var(--primary), 0.6);
+    }
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+}
+
+/* Glass Morphism Effects */
+@layer utilities {
+  .glass {
+    @apply bg-card/80 backdrop-blur-xl border border-border/50;
+  }
+
+  .glass-strong {
+    @apply bg-card/95 backdrop-blur-2xl border border-border/60;
+  }
+}
+
+/* Premium Button Styles */
+@layer components {
+  .btn-premium {
+    @apply relative overflow-hidden transition-all duration-300;
+  }
+
+  .btn-premium::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+    background: linear-gradient(
+      135deg,
+      hsla(var(--primary), 0.2),
+      hsla(var(--secondary), 0.2)
+    );
+  }
+
+  .btn-premium:hover::before {
+    @apply opacity-100;
+  }
+}
+
+/* Typing Cursor Animation */
+@layer utilities {
+  @keyframes blink {
+    0%, 50% {
+      opacity: 1;
+    }
+    51%, 100% {
+      opacity: 0;
+    }
+  }
+
+  .cursor-blink {
+    animation: blink 1s step-end infinite;
+  }
+}
+
+/* Sidebar transition */
+@layer utilities {
+  .sidebar-enter {
+    transform: translateX(-100%);
+  }
+
+  .sidebar-enter-active {
+    transform: translateX(0);
+    transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .sidebar-exit {
+    transform: translateX(0);
+  }
+
+  .sidebar-exit-active {
+    transform: translateX(-100%);
+    transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
